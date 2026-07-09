@@ -1,0 +1,19 @@
+[project]
+name = "raven"
+version = "0.1.0"
+description = "Raven pulls SEC filings and facilitates data vizualisation."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "dbt>=1.0.0.40.18",
+    "dbt-core>=1.11.12",
+    "dbt-duckdb>=1.10.1",
+    "duckdb>=1.5.4",
+    "prefect>=3.7.7",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "ruff>=0.15.20",
+]
