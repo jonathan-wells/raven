@@ -1,0 +1,15 @@
+db/
+docs/
+logs/
+
+compose.yaml
+Dockerfile
+LICENSE
+README.md
+
+.envrc
+.dockerignore
+.git
+.gitignore
+.python-version
+.venv

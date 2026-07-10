@@ -1,0 +1,31 @@
+services:
+  prefect-server:
+    image: prefecthq/prefect:3.7.8-python3.13
+    environment:
+      PREFECT_UI_URL: http://raven-prefect-server:4201
+      PREFECT_UI_API_URL: http://raven-prefect-server:4201/api
+    ports:
+      - 4201:4200
+    mem_limit: 512m
+    restart: unless-stopped
+    command: prefect server start --host 0.0.0.0
+
+  prefect-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SUGRA_API_KEY: ${SUGRA_API_KEY}
+      PREFECT_API_URL: http://prefect-server:4200/api
+    volumes:
+      - ./db:/home/raven/db
+    mem_limit: 512m
+    restart: unless-stopped
+    command: prefect worker start --pool raven-pool
+
+  duckdb:
+    image: duckdb/duckdb:1.5.4
+    volumes:
+      - ./db:/home/raven/db
+    mem_limit: 512m
+    command: duckdb /home/raven/db/raven.duckdb

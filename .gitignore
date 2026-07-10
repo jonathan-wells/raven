@@ -9,7 +9,8 @@ wheels/
 # Virtual environments
 .venv
 
-# dbt
+# Project-specific
+raven.duckdb
 logs/
 
 # Secrets
