@@ -1,0 +1,907 @@
+{
+  "total_assets": [
+    {
+      "end": "2025-12-31",
+      "val": 1119696000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2024-12-31",
+      "val": 1377449000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2023-12-31",
+      "val": 1665342000,
+      "form": "10-K",
+      "filed": "2025-02-25",
+      "accession_number": "0001628280-25-007819",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828025007819/0001628280-25-007819-index.htm"
+    },
+    {
+      "end": "2022-12-31",
+      "val": 2539321000,
+      "form": "10-K",
+      "filed": "2024-02-29",
+      "accession_number": "0001628280-24-008052",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828024008052/0001628280-24-008052-index.htm"
+    },
+    {
+      "end": "2021-12-31",
+      "val": 2070990000,
+      "form": "10-K",
+      "filed": "2023-03-13",
+      "accession_number": "0000950170-23-007461",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000095017023007461/0000950170-23-007461-index.htm"
+    }
+  ],
+  "current_assets": [
+    {
+      "end": "2025-12-31",
+      "val": 471838000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2024-12-31",
+      "val": 602744000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2023-12-31",
+      "val": 1001749000,
+      "form": "10-K",
+      "filed": "2025-02-25",
+      "accession_number": "0001628280-25-007819",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828025007819/0001628280-25-007819-index.htm"
+    },
+    {
+      "end": "2022-12-31",
+      "val": 1450079000,
+      "form": "10-K",
+      "filed": "2024-02-29",
+      "accession_number": "0001628280-24-008052",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828024008052/0001628280-24-008052-index.htm"
+    },
+    {
+      "end": "2021-12-31",
+      "val": 1723045000,
+      "form": "10-K",
+      "filed": "2023-03-13",
+      "accession_number": "0000950170-23-007461",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000095017023007461/0000950170-23-007461-index.htm"
+    }
+  ],
+  "cash": [
+    {
+      "end": "2025-12-31",
+      "val": 167202000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2024-12-31",
+      "val": 561572000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2023-12-31",
+      "val": 944073000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2022-12-31",
+      "val": 1315792000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2021-12-31",
+      "val": 1550004000,
+      "form": "10-K",
+      "filed": "2025-02-25",
+      "accession_number": "0001628280-25-007819",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828025007819/0001628280-25-007819-index.htm"
+    }
+  ],
+  "total_liabilities": [
+    {
+      "end": "2025-12-31",
+      "val": 611106000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2024-12-31",
+      "val": 661391000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2023-12-31",
+      "val": 568190000,
+      "form": "10-K",
+      "filed": "2025-02-25",
+      "accession_number": "0001628280-25-007819",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828025007819/0001628280-25-007819-index.htm"
+    },
+    {
+      "end": "2022-12-31",
+      "val": 803044000,
+      "form": "10-K",
+      "filed": "2024-02-29",
+      "accession_number": "0001628280-24-008052",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828024008052/0001628280-24-008052-index.htm"
+    },
+    {
+      "end": "2021-12-31",
+      "val": 503611000,
+      "form": "10-K",
+      "filed": "2023-03-13",
+      "accession_number": "0000950170-23-007461",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000095017023007461/0000950170-23-007461-index.htm"
+    }
+  ],
+  "current_liabilities": [
+    {
+      "end": "2025-12-31",
+      "val": 95970000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2024-12-31",
+      "val": 107266000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2023-12-31",
+      "val": 163860000,
+      "form": "10-K",
+      "filed": "2025-02-25",
+      "accession_number": "0001628280-25-007819",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828025007819/0001628280-25-007819-index.htm"
+    },
+    {
+      "end": "2022-12-31",
+      "val": 172962000,
+      "form": "10-K",
+      "filed": "2024-02-29",
+      "accession_number": "0001628280-24-008052",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828024008052/0001628280-24-008052-index.htm"
+    },
+    {
+      "end": "2021-12-31",
+      "val": 134761000,
+      "form": "10-K",
+      "filed": "2023-03-13",
+      "accession_number": "0000950170-23-007461",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000095017023007461/0000950170-23-007461-index.htm"
+    }
+  ],
+  "long_term_debt": [],
+  "stockholders_equity": [
+    {
+      "end": "2025-12-31",
+      "val": 508590000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2024-12-31",
+      "val": 716058000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2023-12-31",
+      "val": 1097152000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2022-12-31",
+      "val": 1736277000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2021-12-31",
+      "val": 1505365000,
+      "form": "10-K",
+      "filed": "2023-03-13",
+      "accession_number": "0000950170-23-007461",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000095017023007461/0000950170-23-007461-index.htm"
+    }
+  ],
+  "retained_earnings": [
+    {
+      "end": "2025-12-31",
+      "val": -6150320000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2024-12-31",
+      "val": -5837557000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2023-12-31",
+      "val": -5290528000,
+      "form": "10-K",
+      "filed": "2025-02-25",
+      "accession_number": "0001628280-25-007819",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828025007819/0001628280-25-007819-index.htm"
+    },
+    {
+      "end": "2022-12-31",
+      "val": -4397659000,
+      "form": "10-K",
+      "filed": "2024-02-29",
+      "accession_number": "0001628280-24-008052",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828024008052/0001628280-24-008052-index.htm"
+    },
+    {
+      "end": "2021-12-31",
+      "val": -2297925000,
+      "form": "10-K",
+      "filed": "2023-03-13",
+      "accession_number": "0000950170-23-007461",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000095017023007461/0000950170-23-007461-index.htm"
+    }
+  ],
+  "total_debt": [],
+  "noncurrent_assets": [],
+  "noncurrent_liabilities": [],
+  "liabilities_and_equity": [
+    {
+      "end": "2025-12-31",
+      "val": 1119696000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2024-12-31",
+      "val": 1377449000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2023-12-31",
+      "val": 1665342000,
+      "form": "10-K",
+      "filed": "2025-02-25",
+      "accession_number": "0001628280-25-007819",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828025007819/0001628280-25-007819-index.htm"
+    },
+    {
+      "end": "2022-12-31",
+      "val": 2539321000,
+      "form": "10-K",
+      "filed": "2024-02-29",
+      "accession_number": "0001628280-24-008052",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828024008052/0001628280-24-008052-index.htm"
+    },
+    {
+      "end": "2021-12-31",
+      "val": 2070990000,
+      "form": "10-K",
+      "filed": "2023-03-13",
+      "accession_number": "0000950170-23-007461",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000095017023007461/0000950170-23-007461-index.htm"
+    }
+  ],
+  "goodwill": [
+    {
+      "end": "2024-12-31",
+      "val": 0,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2023-12-31",
+      "val": 49238000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2022-12-31",
+      "val": 60210000,
+      "form": "10-K",
+      "filed": "2025-02-25",
+      "accession_number": "0001628280-25-007819",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828025007819/0001628280-25-007819-index.htm"
+    },
+    {
+      "end": "2021-12-31",
+      "val": 21312000,
+      "form": "10-K",
+      "filed": "2024-02-29",
+      "accession_number": "0001628280-24-008052",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828024008052/0001628280-24-008052-index.htm"
+    },
+    {
+      "end": "2020-12-31",
+      "val": 1857000,
+      "form": "10-K",
+      "filed": "2023-03-13",
+      "accession_number": "0000950170-23-007461",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000095017023007461/0000950170-23-007461-index.htm"
+    }
+  ],
+  "intangible_assets_net": [
+    {
+      "end": "2025-12-31",
+      "val": 56924000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2024-12-31",
+      "val": 72510000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2023-12-31",
+      "val": 82741000,
+      "form": "10-K",
+      "filed": "2025-02-25",
+      "accession_number": "0001628280-25-007819",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828025007819/0001628280-25-007819-index.htm"
+    },
+    {
+      "end": "2022-12-31",
+      "val": 111041000,
+      "form": "10-K",
+      "filed": "2024-02-29",
+      "accession_number": "0001628280-24-008052",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828024008052/0001628280-24-008052-index.htm"
+    },
+    {
+      "end": "2021-12-31",
+      "val": 21642000,
+      "form": "10-K",
+      "filed": "2023-03-13",
+      "accession_number": "0000950170-23-007461",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000095017023007461/0000950170-23-007461-index.htm"
+    }
+  ],
+  "property_plant_equipment_net": [
+    {
+      "end": "2025-12-31",
+      "val": 167783000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2024-12-31",
+      "val": 203720000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2023-12-31",
+      "val": 188193000,
+      "form": "10-K",
+      "filed": "2025-02-25",
+      "accession_number": "0001628280-25-007819",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828025007819/0001628280-25-007819-index.htm"
+    },
+    {
+      "end": "2022-12-31",
+      "val": 314773000,
+      "form": "10-K",
+      "filed": "2024-02-29",
+      "accession_number": "0001628280-24-008052",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828024008052/0001628280-24-008052-index.htm"
+    },
+    {
+      "end": "2021-12-31",
+      "val": 145770000,
+      "form": "10-K",
+      "filed": "2023-03-13",
+      "accession_number": "0000950170-23-007461",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000095017023007461/0000950170-23-007461-index.htm"
+    }
+  ],
+  "property_plant_equipment_gross": [
+    {
+      "end": "2025-12-31",
+      "val": 358380000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2024-12-31",
+      "val": 364592000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2023-12-31",
+      "val": 308911000,
+      "form": "10-K",
+      "filed": "2025-02-25",
+      "accession_number": "0001628280-25-007819",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828025007819/0001628280-25-007819-index.htm"
+    },
+    {
+      "end": "2022-12-31",
+      "val": 407529000,
+      "form": "10-K",
+      "filed": "2024-02-29",
+      "accession_number": "0001628280-24-008052",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828024008052/0001628280-24-008052-index.htm"
+    },
+    {
+      "end": "2021-12-31",
+      "val": 206822000,
+      "form": "10-K",
+      "filed": "2023-03-13",
+      "accession_number": "0000950170-23-007461",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000095017023007461/0000950170-23-007461-index.htm"
+    }
+  ],
+  "accumulated_depreciation": [
+    {
+      "end": "2025-12-31",
+      "val": 190597000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2024-12-31",
+      "val": 160872000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2023-12-31",
+      "val": 120718000,
+      "form": "10-K",
+      "filed": "2025-02-25",
+      "accession_number": "0001628280-25-007819",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828025007819/0001628280-25-007819-index.htm"
+    },
+    {
+      "end": "2022-12-31",
+      "val": 92756000,
+      "form": "10-K",
+      "filed": "2024-02-29",
+      "accession_number": "0001628280-24-008052",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828024008052/0001628280-24-008052-index.htm"
+    },
+    {
+      "end": "2021-12-31",
+      "val": 61052000,
+      "form": "10-K",
+      "filed": "2023-03-13",
+      "accession_number": "0000950170-23-007461",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000095017023007461/0000950170-23-007461-index.htm"
+    }
+  ],
+  "inventory": [
+    {
+      "end": "2023-12-31",
+      "val": 46000,
+      "form": "10-K",
+      "filed": "2024-02-29",
+      "accession_number": "0001628280-24-008052",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828024008052/0001628280-24-008052-index.htm"
+    },
+    {
+      "end": "2022-12-31",
+      "val": 4364000,
+      "form": "10-K",
+      "filed": "2024-02-29",
+      "accession_number": "0001628280-24-008052",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828024008052/0001628280-24-008052-index.htm"
+    },
+    {
+      "end": "2021-12-31",
+      "val": 3362000,
+      "form": "10-K",
+      "filed": "2023-03-13",
+      "accession_number": "0000950170-23-007461",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000095017023007461/0000950170-23-007461-index.htm"
+    },
+    {
+      "end": "2020-12-31",
+      "val": 2736000,
+      "form": "10-K",
+      "filed": "2022-03-29",
+      "accession_number": "0000950170-22-004821",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000095017022004821/0000950170-22-004821-index.htm"
+    }
+  ],
+  "accounts_receivable": [
+    {
+      "end": "2025-12-31",
+      "val": 24026000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2024-12-31",
+      "val": 21857000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2023-12-31",
+      "val": 17157000,
+      "form": "10-K",
+      "filed": "2025-02-25",
+      "accession_number": "0001628280-25-007819",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828025007819/0001628280-25-007819-index.htm"
+    },
+    {
+      "end": "2022-12-31",
+      "val": 80907000,
+      "form": "10-K",
+      "filed": "2024-02-29",
+      "accession_number": "0001628280-24-008052",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828024008052/0001628280-24-008052-index.htm"
+    },
+    {
+      "end": "2021-12-31",
+      "val": 131544000,
+      "form": "10-K",
+      "filed": "2023-03-13",
+      "accession_number": "0000950170-23-007461",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000095017023007461/0000950170-23-007461-index.htm"
+    }
+  ],
+  "accounts_payable": [
+    {
+      "end": "2025-12-31",
+      "val": 10566000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2024-12-31",
+      "val": 14169000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2023-12-31",
+      "val": 9323000,
+      "form": "10-K",
+      "filed": "2025-02-25",
+      "accession_number": "0001628280-25-007819",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828025007819/0001628280-25-007819-index.htm"
+    },
+    {
+      "end": "2022-12-31",
+      "val": 10451000,
+      "form": "10-K",
+      "filed": "2024-02-29",
+      "accession_number": "0001628280-24-008052",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828024008052/0001628280-24-008052-index.htm"
+    },
+    {
+      "end": "2021-12-31",
+      "val": 8189000,
+      "form": "10-K",
+      "filed": "2023-03-13",
+      "accession_number": "0000950170-23-007461",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000095017023007461/0000950170-23-007461-index.htm"
+    }
+  ],
+  "short_term_debt": [],
+  "deferred_revenue": [
+    {
+      "end": "2022-12-31",
+      "val": 47817000,
+      "form": "10-K",
+      "filed": "2023-03-13",
+      "accession_number": "0000950170-23-007461",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000095017023007461/0000950170-23-007461-index.htm"
+    },
+    {
+      "end": "2021-12-31",
+      "val": 33240000,
+      "form": "10-K",
+      "filed": "2023-03-13",
+      "accession_number": "0000950170-23-007461",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000095017023007461/0000950170-23-007461-index.htm"
+    },
+    {
+      "end": "2020-12-31",
+      "val": 28823000,
+      "form": "10-K",
+      "filed": "2022-03-29",
+      "accession_number": "0000950170-22-004821",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000095017022004821/0000950170-22-004821-index.htm"
+    }
+  ],
+  "other_assets_noncurrent": [
+    {
+      "end": "2025-12-31",
+      "val": 47167000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2024-12-31",
+      "val": 55336000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2023-12-31",
+      "val": 58055000,
+      "form": "10-K",
+      "filed": "2025-02-25",
+      "accession_number": "0001628280-25-007819",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828025007819/0001628280-25-007819-index.htm"
+    },
+    {
+      "end": "2022-12-31",
+      "val": 88725000,
+      "form": "10-K",
+      "filed": "2024-02-29",
+      "accession_number": "0001628280-24-008052",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828024008052/0001628280-24-008052-index.htm"
+    },
+    {
+      "end": "2021-12-31",
+      "val": 43990000,
+      "form": "10-K",
+      "filed": "2023-03-13",
+      "accession_number": "0000950170-23-007461",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000095017023007461/0000950170-23-007461-index.htm"
+    }
+  ],
+  "other_liabilities_noncurrent": [
+    {
+      "end": "2025-12-31",
+      "val": 22876000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2024-12-31",
+      "val": 16576000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2023-12-31",
+      "val": 24433000,
+      "form": "10-K",
+      "filed": "2025-02-25",
+      "accession_number": "0001628280-25-007819",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828025007819/0001628280-25-007819-index.htm"
+    },
+    {
+      "end": "2022-12-31",
+      "val": 31191000,
+      "form": "10-K",
+      "filed": "2024-02-29",
+      "accession_number": "0001628280-24-008052",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828024008052/0001628280-24-008052-index.htm"
+    },
+    {
+      "end": "2021-12-31",
+      "val": 35992000,
+      "form": "10-K",
+      "filed": "2023-03-13",
+      "accession_number": "0000950170-23-007461",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000095017023007461/0000950170-23-007461-index.htm"
+    }
+  ],
+  "additional_paid_in_capital": [
+    {
+      "end": "2025-12-31",
+      "val": 6657053000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2024-12-31",
+      "val": 6555416000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2023-12-31",
+      "val": 6386191000,
+      "form": "10-K",
+      "filed": "2025-02-25",
+      "accession_number": "0001628280-25-007819",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828025007819/0001628280-25-007819-index.htm"
+    },
+    {
+      "end": "2022-12-31",
+      "val": 6136378000,
+      "form": "10-K",
+      "filed": "2024-02-29",
+      "accession_number": "0001628280-24-008052",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828024008052/0001628280-24-008052-index.htm"
+    },
+    {
+      "end": "2021-12-31",
+      "val": 3804844000,
+      "form": "10-K",
+      "filed": "2023-03-13",
+      "accession_number": "0000950170-23-007461",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000095017023007461/0000950170-23-007461-index.htm"
+    }
+  ],
+  "accumulated_other_comprehensive_income": [
+    {
+      "end": "2025-12-31",
+      "val": 1851000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2024-12-31",
+      "val": -1806000,
+      "form": "10-K",
+      "filed": "2026-02-26",
+      "accession_number": "0001628280-26-012346",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828026012346/0001628280-26-012346-index.htm"
+    },
+    {
+      "end": "2023-12-31",
+      "val": 1484000,
+      "form": "10-K",
+      "filed": "2025-02-25",
+      "accession_number": "0001628280-25-007819",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828025007819/0001628280-25-007819-index.htm"
+    },
+    {
+      "end": "2022-12-31",
+      "val": -2632000,
+      "form": "10-K",
+      "filed": "2024-02-29",
+      "accession_number": "0001628280-24-008052",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828024008052/0001628280-24-008052-index.htm"
+    },
+    {
+      "end": "2021-12-31",
+      "val": -1715000,
+      "form": "10-K",
+      "filed": "2023-03-13",
+      "accession_number": "0000950170-23-007461",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000095017023007461/0000950170-23-007461-index.htm"
+    }
+  ],
+  "equity_including_noncontrolling": [
+    {
+      "end": "2024-12-31",
+      "val": 716058000,
+      "form": "10-K",
+      "filed": "2025-02-25",
+      "accession_number": "0001628280-25-007819",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828025007819/0001628280-25-007819-index.htm"
+    },
+    {
+      "end": "2023-12-31",
+      "val": 1097152000,
+      "form": "10-K",
+      "filed": "2025-02-25",
+      "accession_number": "0001628280-25-007819",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828025007819/0001628280-25-007819-index.htm"
+    },
+    {
+      "end": "2022-12-31",
+      "val": 1736277000,
+      "form": "10-K",
+      "filed": "2025-02-25",
+      "accession_number": "0001628280-25-007819",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828025007819/0001628280-25-007819-index.htm"
+    },
+    {
+      "end": "2021-12-31",
+      "val": 1567379000,
+      "form": "10-K",
+      "filed": "2025-02-25",
+      "accession_number": "0001628280-25-007819",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828025007819/0001628280-25-007819-index.htm"
+    },
+    {
+      "end": "2020-12-31",
+      "val": 470052000,
+      "form": "10-K",
+      "filed": "2024-02-29",
+      "accession_number": "0001628280-24-008052",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1830214/000162828024008052/0001628280-24-008052-index.htm"
+    }
+  ]
+}
