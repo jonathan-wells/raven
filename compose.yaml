@@ -27,8 +27,11 @@ services:
     environment:
       SUGRA_API_KEY: ${SUGRA_API_KEY}
       PREFECT_API_URL: http://prefect-server:4200/api
+      RAVEN_DUCKDB: /home/raven/db/raven.duckdb
+
     volumes:
       - ./db:/home/raven/db
+      - ./orchestration:/home/raven/orchestration
     depends_on:
       prefect-server:
         condition: service_healthy

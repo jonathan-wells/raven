@@ -1,0 +1,25 @@
+---
+name: raven
+prefect-version: 3.7.7
+
+pull:
+  - prefect.deployments.steps.set_working_directory:
+      directory: /home/raven
+
+deployments:
+  - name: load-sugra-api-data
+    entrypoint: ./orchestration/flows.py:load_sugra_api_data
+    description: Calls the Sugra API and populates the Raven DuckDB with data.
+    work_pool:
+      name: raven-pool
+    schedules:
+      - cron: "25 22 * * 1-5"
+        timezone: America/New_York
+        active: true
+    parameters:
+      tickers:
+        - "BNTX"
+        - "DNA"
+        - "SNY"
+        - "VRTX"
+        - "NVO"
