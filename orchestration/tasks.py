@@ -6,7 +6,7 @@ from prefect import task
 from prefect.logging import get_run_logger
 import duckdb
 
-from config import config
+from orchestration.config import config
 
 
 @task(retries=3, retry_delay_seconds=5)
@@ -49,3 +49,7 @@ def populate_duckdb(json_data: dict, ticker: str) -> None:
         conn.sql(
             f"MERGE INTO {table} AS t USING new_{table} AS s ON t.accession_number == s.accession_number WHEN NOT MATCHED THEN INSERT BY NAME;"
         )
+
+
+if __name__ == "__main__":
+    print("hi")

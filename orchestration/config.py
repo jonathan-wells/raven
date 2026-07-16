@@ -4,8 +4,8 @@ from pathlib import Path
 
 class Config:
     def __init__(self) -> None:
-        self.sugra_api_key = self._load_env_var("SUGRA_API_KEY")
-        self.duckdb = Path(self._load_env_var("RAVEN_DUCKDB"))
+        self.sugra_api_key: str = self._load_env_var("SUGRA_API_KEY")
+        self.duckdb: Path | str = Path(self._load_env_var("RAVEN_DUCKDB"))
 
     @staticmethod
     def _load_env_var(key: str) -> str:
