@@ -1,0 +1,8 @@
+raven:
+  target: prod
+  outputs:
+    prod:
+      type: duckdb
+      path: '../db/raven.duckdb'
+      schema: main
+      threads: 4
