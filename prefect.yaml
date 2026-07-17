@@ -16,10 +16,3 @@ deployments:
       - cron: "25 22 * * 1-5"
         timezone: America/New_York
         active: true
-    parameters:
-      tickers:
-        - "BNTX"
-        - "DNA"
-        - "SNY"
-        - "VRTX"
-        - "NVO"
