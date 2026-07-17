@@ -12,7 +12,7 @@ from orchestration.config import config
 @task(retries=3, retry_delay_seconds=5)
 def call_sugra_api(service: str, ticker: str, dataset: str) -> dict:
     logger = get_run_logger()
-    header = {"x-api-key": config.sugra_api_key}
+    header = {"x-api-key": config["sugra_api_key"]}
     url = f"https://sugra.ai/api/v1/{service}/{ticker}/{dataset}"
     try:
         logger.info(f"Requesting {dataset} data from {ticker}.")
@@ -31,7 +31,7 @@ def call_sugra_api(service: str, ticker: str, dataset: str) -> dict:
 
 def populate_duckdb(json_data: dict, ticker: str) -> None:
     logger = get_run_logger()
-    conn = duckdb.connect(config.duckdb)
+    conn = duckdb.connect(config["duckdb"])
     for table, value in json_data.items():
         logger.info(f"Populating {ticker} {table} data.")
         if not isinstance(value, list):

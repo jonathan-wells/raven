@@ -1,0 +1,11 @@
+datasets:
+  - "income"
+  - "balance"
+
+tickers:
+  - "VRTX"
+  - "BNTX"
+  - "DNA"
+  - "SNY"
+  - "VRTX"
+  - "NVO"
