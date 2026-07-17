@@ -40,6 +40,7 @@ def populate_duckdb(json_data: dict, ticker: str) -> None:
             continue
 
         _json_data = conn.read_json(StringIO(json.dumps(value)))  # type: ignore
+        conn.sql("SET SCHEMA 'raw';")
         conn.sql(
             f"CREATE TABLE IF NOT EXISTS {table} AS SELECT *, '{ticker}' AS ticker FROM _json_data;"
         )

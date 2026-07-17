@@ -32,6 +32,7 @@ services:
     volumes:
       - ./db:/home/raven/db
       - ./orchestration:/home/raven/orchestration
+      - ./config.yaml:/home/raven/config.yaml
     depends_on:
       prefect-server:
         condition: service_healthy

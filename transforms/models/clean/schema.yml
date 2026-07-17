@@ -13,4 +13,3 @@ models:
       - name: total_liabilities
       - name: valuation
       - name: ticker
-      - name:

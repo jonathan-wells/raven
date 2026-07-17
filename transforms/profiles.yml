@@ -3,6 +3,6 @@ raven:
   outputs:
     prod:
       type: duckdb
-      path: '../db/raven.duckdb'
-      schema: main
+      path: './db/raven.duckdb'
+      schema: clean
       threads: 4

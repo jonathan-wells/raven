@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: raw
+    description: "Raw data pulled straight from the Sugra API."
+    schema: raw
+    tables:
+      - name: cash
+      - name: revenue
+      - name: total_assets
+      - name: total_liabilities
+      - name: total_debt

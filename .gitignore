@@ -18,3 +18,6 @@ logs/
 
 # Secrets
 .env*
+
+# dbt
+.user.yml
