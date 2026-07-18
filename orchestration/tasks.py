@@ -29,7 +29,7 @@ def call_sugra_api(service: str, ticker: str, dataset: str) -> dict:
         return response.json()
 
 
-def populate_duckdb(json_data: dict, ticker: str) -> None:
+def populate_duckdb(json_data: dict, ticker: str, dataset: str) -> None:
     logger = get_run_logger()
     conn = duckdb.connect(config["duckdb"])
     for table, value in json_data.items():
@@ -39,14 +39,14 @@ def populate_duckdb(json_data: dict, ticker: str) -> None:
         if len(value) == 0:
             continue
 
-        _json_data = conn.read_json(StringIO(json.dumps(value)))  # type: ignore
+        _json_data = conn.read_json(StringIO(json.dumps(value)))
         conn.sql("SET SCHEMA 'raw';")
         conn.sql(
-            f"CREATE TABLE IF NOT EXISTS {table} AS SELECT *, '{ticker}' AS ticker FROM _json_data;"
+            f"CREATE TABLE IF NOT EXISTS {dataset}_{table} AS SELECT *, '{ticker}' AS ticker, '{dataset}' AS dataset FROM _json_data;"
         )
         conn.sql(
-            f"CREATE TEMPORARY TABLE new_{table} AS SELECT *, '{ticker}' AS ticker FROM _json_data;"
+            f"CREATE TEMPORARY TABLE new_{dataset}_{table} AS SELECT *, '{ticker}' AS ticker, '{dataset}' AS dataset FROM _json_data;"
         )
         conn.sql(
-            f"MERGE INTO {table} AS t USING new_{table} AS s ON t.accession_number == s.accession_number WHEN NOT MATCHED THEN INSERT BY NAME;"
+            f"MERGE INTO {dataset}_{table} AS t USING new_{dataset}_{table} AS s ON t.accession_number == s.accession_number WHEN NOT MATCHED THEN INSERT BY NAME;"
         )

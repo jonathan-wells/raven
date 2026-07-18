@@ -11,4 +11,4 @@ def load_sugra_api_data(
     for dataset in datasets:
         for ticker in tickers:
             response = call_sugra_api("fundamentals", ticker, dataset)
-            populate_duckdb(response["data"], ticker)
+            populate_duckdb(response["data"], ticker, dataset)

@@ -28,11 +28,19 @@ services:
       SUGRA_API_KEY: ${SUGRA_API_KEY}
       PREFECT_API_URL: http://prefect-server:4200/api
       RAVEN_DUCKDB: /home/raven/db/raven.duckdb
-
+    healthcheck:
+      test:
+        - "CMD-SHELL"
+        - "test -f /home/raven/config.yaml;"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     volumes:
-      - ./db:/home/raven/db
-      - ./orchestration:/home/raven/orchestration
       - ./config.yaml:/home/raven/config.yaml
+      - ./orchestration:/home/raven/orchestration
+      - ./transforms:/home/raven/transforms
+      - ./db:/home/raven/db
     depends_on:
       prefect-server:
         condition: service_healthy
