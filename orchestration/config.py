@@ -27,5 +27,11 @@ class Config:
     def __getitem__(self, name: str):
         return self._config[name]
 
+    def __getattr__(self, name: str):
+        try:
+            return self._config[name]
+        except KeyError:
+            raise AttributeError(name)
+
 
 config = Config()

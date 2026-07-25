@@ -53,15 +53,19 @@ def test_call_sugra_api_timeout(monkeypatch):
 def test_populate_duckdb(monkeypatch, dna_balance):
     dbpath = Path("/tmp/tmp.duckdb")
     monkeypatch.setattr("orchestration.tasks.config.duckdb", dbpath)
-    with disable_run_logger():
-        populate_duckdb(dna_balance, "ticker")
-
     conn = duckdb.connect(dbpath)
+    conn.sql("CREATE SCHEMA IF NOT EXISTS 'raw';")
+    ticker = "ticker"
+    dataset = "dataset"
+    with disable_run_logger():
+        populate_duckdb(dna_balance, ticker, dataset)
+
     for table, values in dna_balance.items():
         if len(values) == 0:
             # Skip because empty tables don't get created
             continue
-        data = conn.sql(f"SELECT * FROM {table};")
+        data = conn.sql("SET SCHEMA 'raw';")
+        data = conn.sql(f"SELECT * FROM {dataset}_{table};")
         assert data.to_df().shape[0] == len(values)
 
     # If not unset this test could pass based on data saved in prior runs.
