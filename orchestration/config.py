@@ -5,8 +5,8 @@ import yaml
 
 class Config:
     def __init__(self):
-
-        with open(Path(__file__).parent.parent / "config.yaml") as yamlfile:
+        configpath = Path(__file__).parent.parent / "config.yaml"
+        with open(configpath) as yamlfile:
             self._config = yaml.safe_load(yamlfile)
 
         if "tickers" not in self._config.keys():
