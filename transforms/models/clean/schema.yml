@@ -1,15 +1,15 @@
 version: 2
 
 models:
-  - name: valuation
-    description: "Aggregated company valuation data"
+  - name: income
+    description: "Aggregated company income data"
     columns:
       - name: id
         description: "The primary key for this table"
         data_tests:
           - unique
           - not_null
-      - name: total_assets
-      - name: total_liabilities
-      - name: valuation
-      - name: ticker
+      - name: revenue
+      - name: gross_profit
+      - name: operating_income
+      - name: net_income
