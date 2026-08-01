@@ -4,5 +4,5 @@ raven:
     prod:
       type: duckdb
       path: './db/raven.duckdb'
-      schema: clean
+      schema: aggregated
       threads: 4
