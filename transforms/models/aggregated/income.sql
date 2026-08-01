@@ -15,7 +15,12 @@ operating_income as (
 net_income as (
     select *
     from {{ source('raw', 'income_net_income') }}
+),
+cost_of_revenue as (
+    select *
+    from {{ source('raw', 'income_cost_of_revenue') }}
 )
+
 select
     coalesce(r.dataset, g.dataset, o.dataset, n.dataset) as dataset,
     coalesce(r.ticker, g.ticker, o.ticker, n.ticker) as ticker,
@@ -25,7 +30,8 @@ select
     r.val as revenue,
     g.val as gross_profit,
     o.val as operating_income,
-    n.val as net_income
+    n.val as net_income,
+    c.val as cost_of_revenue
 from revenue r
 full outer join gross_profit g
     on r.ticker = g.ticker
@@ -36,3 +42,6 @@ full outer join operating_income o
 full outer join net_income n
     on coalesce(r.ticker, g.ticker, o.ticker) = n.ticker
     and coalesce(r.end, g.end, o.end) = n.end
+full outer join cost_of_revenue c
+    on coalesce(r.ticker, g.ticker, o.ticker, n.ticker) = c.ticker
+    and coalesce(r.end, g.end, o.end, n.end) = c.end

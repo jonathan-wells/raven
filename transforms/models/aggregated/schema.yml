@@ -13,3 +13,4 @@ models:
       - name: gross_profit
       - name: operating_income
       - name: net_income
+      - name: cost_of_revenue

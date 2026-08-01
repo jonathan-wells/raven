@@ -9,3 +9,4 @@ sources:
       - name: income_gross_profit
       - name: income_operating_income
       - name: income_net_income
+      - name: income_cost_of_revenue
