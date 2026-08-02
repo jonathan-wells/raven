@@ -7,28 +7,47 @@ from prefect.logging import get_run_logger
 import duckdb
 
 from orchestration.config import config
+from orchestration.utils import ticker_to_cik
+
+TICKER_TO_CIK = ticker_to_cik()
+
+
+def request_url(url: str, headers: dict, params: dict = {}) -> dict:
+    logger = get_run_logger()
+    try:
+        response = requests.get(url, headers=headers, params=params)
+        response.raise_for_status()
+    except requests.exceptions.InvalidURL as url_err:
+        logger.error("InvalidURL: Failed to retrieve data.")
+        raise url_err
+    except requests.exceptions.HTTPError as http_err:
+        logger.error("HTTPError: Failed to retrieve data.")
+        raise http_err
+    except requests.exceptions.Timeout as timeout:
+        logger.error("Timeout: Failed to retrieve data.")
+        raise timeout
+    else:
+        logger.info("Succesfully retrieved data.")
+        return response.json()
 
 
 @task(retries=3, retry_delay_seconds=5)
 def call_sugra_api(service: str, ticker: str, dataset: str) -> dict:
-    logger = get_run_logger()
-    header = {"x-api-key": config.sugra_api_key}
+    headers = {"x-api-key": config.sugra_api_key}
+    params = {"period": 20, "usd": True, "form": "10-K"}
     url = f"https://sugra.ai/api/v1/{service}/{ticker}/{dataset}"
-    try:
-        logger.info(f"Requesting {dataset} data from {ticker}.")
-        response = requests.get(url, headers=header)
-        response.raise_for_status()
-    except requests.exceptions.HTTPError as http_err:
-        logger.error(f"HTTPError: Failed to retrieve {ticker} data.")
-        raise http_err
-    except requests.exceptions.Timeout as timeout:
-        logger.error(f"Timeout: Failed to retrieve {ticker} data.")
-        raise timeout
-    else:
-        logger.info(f"Retrieved {ticker} data.")
-        return response.json()
+    return request_url(url, headers, params)
 
 
+@task(retries=3, retry_delay_seconds=5)
+def call_edgar_api(ticker: str) -> dict:
+    headers = {"User-Agent": config.edgar_header}
+    cik = TICKER_TO_CIK[ticker]
+    url = f"https://data.sec.gov/api/xbrl/companyfacts/CIK{cik}.json"
+    return request_url(url, headers)
+
+
+@task(retries=2, retry_delay_seconds=5)
 def populate_duckdb(json_data: dict, ticker: str, dataset: str) -> None:
     logger = get_run_logger()
     conn = duckdb.connect(config.duckdb)

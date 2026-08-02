@@ -15,6 +15,7 @@ class Config:
             raise RuntimeError("'tickers' not found in config.yaml")
 
         self._config["sugra_api_key"] = self._load_env_var("SUGRA_API_KEY")
+        self._config["edgar_header"] = self._load_env_var("EDGAR_HEADER")
         self._config["duckdb"] = self._load_env_var("RAVEN_DUCKDB")
 
     @staticmethod
