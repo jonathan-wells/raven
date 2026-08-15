@@ -12,8 +12,9 @@ def _():
 
     import pandas as pd
     import seaborn as sns
+    import matplotlib.pyplot as plt
 
-    return Counter, pd, requests, sns, time
+    return Counter, pd, plt, requests, sns, time
 
 
 @app.cell
@@ -146,55 +147,103 @@ def _():
 
 
 @app.cell
-def _(pd, revenue_tags, ticker_data):
-    _ticker = "dna"
-    _data = ticker_data[_ticker]["facts"]["us-gaap"]
+def _(biotech_df, pd, revenue_tags, ticker_data):
     _dfs = []
-    for _tag in revenue_tags:
-        if _tag not in _data:
-            _fin_data = []
+    for _ticker in biotech_df.index:
+        if "facts" not in ticker_data[_ticker]:
             continue
-        _revenue_data = _data[_tag]
-        # if "units" not in _revenue_data:
-        #     continue
-        # if "USD" not in _revenue_data:
-        #     continue
-        _fin_data = [item for item in _revenue_data["units"]["USD"] if "frame" in item]
-        _df = pd.DataFrame(_fin_data)
-        for col in ["start", "end", "filed"]:
-            _df[col] = pd.to_datetime(_df[col])
-        _df["tag"] = _tag
-        _df["ticker"] = _ticker
-        _dfs.append(_df)
+        if "us-gaap" not in ticker_data[_ticker]["facts"]:
+            continue
+        _data = ticker_data[_ticker]["facts"]["us-gaap"]
+        for _tag in revenue_tags:
+            if _tag not in _data:
+                _fin_data = []
+                continue
+            _revenue_data = _data[_tag]
+            if "units" not in _revenue_data:
+                continue
+            if "USD" not in _revenue_data["units"]:
+                continue
+            _fin_data = [
+                item for item in _revenue_data["units"]["USD"] if "frame" in item
+            ]
+            if len(_fin_data) == 0:
+                continue
+            _df = pd.DataFrame(_fin_data)
+            if _df.columns.to_list() != [
+                "start",
+                "end",
+                "val",
+                "accn",
+                "fy",
+                "fp",
+                "form",
+                "filed",
+                "frame",
+            ]:
+                continue
+            for col in ["start", "end", "filed", "fy"]:
+                _df[col] = pd.to_datetime(_df[col])
+            _df["tag"] = _tag
+            _df["ticker"] = _ticker
+            _dfs.append(_df)
     revenue_df = pd.concat(_dfs)
-    revenue_df
     return (revenue_df,)
 
 
 @app.cell
 def _(revenue_df):
-    pivot_revenue_df2 = (
-        revenue_df.loc[
-            (revenue_df["end"].dt.month == 12) & (~revenue_df.frame.str.contains("Q"))
-        ]
-        .sort_values("end")[["end", "val", "tag", "ticker"]]
-        .pivot(columns="tag", values="val", index=["end", "ticker"])
+    revenue_df2 = (
+        revenue_df.drop("tag", axis=1)
+        .groupby(
+            ["start", "end", "accn", "fy", "fp", "form", "filed", "frame", "ticker"]
+        )
+        .max()
+        .reset_index()
+        .rename({"val": "EstimatedRevenue"}, axis=1)
     )
-    _rev_cols = [
-        "RevenueFromContractWithCustomerExcludingAssessedTax",
-        "Revenues",
-        "SalesRevenueGoodsNet",
-    ]
-    pivot_revenue_df2["EstimatedRevenue"] = (
-        pivot_revenue_df2[_rev_cols].bfill(axis=1).iloc[:, 0]
-    )
-    pivot_revenue_df2
-    return (pivot_revenue_df2,)
+    revenue_df2["duration"] = revenue_df2["end"] - revenue_df2["start"]
+    revenue_df2
+    return (revenue_df2,)
 
 
 @app.cell
-def _(pivot_revenue_df2, sns):
-    sns.lineplot(data=pivot_revenue_df2, x="end", y="EstimatedRevenue")
+def _(plt, revenue_df2, sns):
+    _tickers = ["vrtx", "dna", "regn", "mrna", "kymr"]
+
+    _fig, _ax = plt.subplots()
+    sns.lineplot(
+        data=revenue_df2.loc[
+            (revenue_df2.duration > "80 days")
+            & (revenue_df2.duration < "100 days")
+            & (revenue_df2.ticker.isin(_tickers))
+        ],
+        x="end",
+        y="EstimatedRevenue",
+        hue="ticker",
+    )
+    _ax.set_yticks(range(0, int(7e9), int(1e9)))
+    _ax.set_yticklabels(range(0, 7))
+    _ax.set_ylabel("Estimated Quarterly Revenue")
+
+    sns.despine()
+    plt.show()
+    return
+
+
+@app.cell
+def _(revenue_df2):
+    revenue_df2.loc[
+        (revenue_df2.duration > "80 days")
+        & (revenue_df2.duration < "100 days")
+        & (revenue_df2.ticker == "mrna")
+    ]
+    return
+
+
+@app.cell
+def _(biotech_df):
+    biotech_df
     return
 
 
