@@ -6,6 +6,7 @@ app = marimo.App(width="medium")
 
 @app.cell
 def _():
+    import re
     import requests
     import time
     from collections import Counter
@@ -14,7 +15,7 @@ def _():
     import seaborn as sns
     import matplotlib.pyplot as plt
 
-    return Counter, pd, plt, requests, sns, time
+    return Counter, pd, plt, re, requests, sns, time
 
 
 @app.cell
@@ -135,19 +136,19 @@ def _(Counter, biotech_df, ticker_data):
 @app.cell
 def _():
     revenue_tags = [
-        "RevenueFromContractWithCustomerExcludingAssessedTax",
         "Revenues",
+        "RevenueFromContractWithCustomerExcludingAssessedTax",
+        "SalesRevenueGoodsGross",
         "SalesRevenueNet",
-        "RevenueFromContractWithCustomerIncludingAssessedTax",
         "SalesRevenueGoodsNet",
         "SalesRevenueServicesNet",
-        "SalesRevenueGoodsGross",
+        "RevenueFromContractWithCustomerIncludingAssessedTax",
     ]
     return (revenue_tags,)
 
 
 @app.cell
-def _(biotech_df, pd, revenue_tags, ticker_data):
+def _(biotech_df, pd, re, revenue_tags, ticker_data):
     _dfs = []
     for _ticker in biotech_df.index:
         if "facts" not in ticker_data[_ticker]:
@@ -182,68 +183,96 @@ def _(biotech_df, pd, revenue_tags, ticker_data):
                 "frame",
             ]:
                 continue
-            for col in ["start", "end", "filed", "fy"]:
+            for col in ["start", "end", "filed"]:
                 _df[col] = pd.to_datetime(_df[col])
             _df["tag"] = _tag
             _df["ticker"] = _ticker
+            _df["tag"] = pd.Categorical(
+                _df["tag"], categories=revenue_tags, ordered=True
+            )
             _dfs.append(_df)
-    revenue_df = pd.concat(_dfs)
+
+    revenue_df = (
+        pd.concat(_dfs)
+        .sort_values(["tag", "form"])
+        .groupby(["ticker", "frame"])
+        .first()
+        .reset_index()
+        .rename({"val": "EstimatedRevenue"}, axis=1)
+        .sort_values(["ticker", "fy", "form", "end"])
+    )
+
+    revenue_df["frame_year"] = revenue_df.frame.apply(
+        lambda x: int(re.match(r"CY(\d+)", x).group(1))
+    )
+    revenue_df["frame_quarter"] = revenue_df.frame.apply(
+        lambda x: (
+            re.match(r"CY\d+(Q\d)", x).group(1) if re.match(r"CY\d+(Q\d)", x) else None
+        )
+    )
+    revenue_df
     return (revenue_df,)
 
 
 @app.cell
 def _(revenue_df):
-    revenue_df2 = (
-        revenue_df.drop("tag", axis=1)
-        .groupby(
-            ["start", "end", "accn", "fy", "fp", "form", "filed", "frame", "ticker"]
-        )
-        .max()
-        .reset_index()
-        .rename({"val": "EstimatedRevenue"}, axis=1)
-    )
-    revenue_df2["duration"] = revenue_df2["end"] - revenue_df2["start"]
-    revenue_df2
-    return (revenue_df2,)
+    wide_revenue_df = revenue_df.pivot_table(
+        index=["ticker", "frame_year"],
+        columns=["fp"],
+        values="EstimatedRevenue",
+        aggfunc="last",
+    ).drop("T3", axis=1)
+
+    complete = wide_revenue_df.notna().all(axis=1)
+    wide_revenue_df["Q4"] = (
+        wide_revenue_df["FY"] - wide_revenue_df[["Q1", "Q2", "Q3"]].sum(axis=1)
+    ).where(complete)
+    wide_revenue_df
+    return (wide_revenue_df,)
 
 
 @app.cell
-def _(plt, revenue_df2, sns):
-    _tickers = ["vrtx", "dna", "regn", "mrna", "kymr"]
+def _(revenue_df, wide_revenue_df):
+    end_dict = (
+        revenue_df[["ticker", "frame_year", "fp", "end"]]
+        .set_index(["ticker", "frame_year", "fp"])
+        .to_dict()
+    )
+    for (ticker, year, fp), end_date in list(end_dict.items()):
+        if fp == "FY":
+            end_dict["end"][(ticker, year, "Q4")] = end_date
+
+    simple_revenue_df = wide_revenue_df.reset_index().melt(
+        id_vars=["ticker", "frame_year"], value_name="estimated_revenue"
+    )
+    simple_revenue_df["end"] = simple_revenue_df.apply(
+        lambda x: end_dict["end"].get((x.ticker, x.frame_year, x.fp)), axis=1
+    )
+    simple_revenue_df = simple_revenue_df.dropna()
+    simple_revenue_df
+    return (simple_revenue_df,)
+
+
+@app.cell
+def _(plt, simple_revenue_df, sns):
+    _tickers = ["vrtx", "dna", "regn", "mrna", "kymr", "rvmd", "jazz"]
+    # _tickers = ["dna", "kymr", "cogt", "rvmd"]
 
     _fig, _ax = plt.subplots()
     sns.lineplot(
-        data=revenue_df2.loc[
-            (revenue_df2.duration > "80 days")
-            & (revenue_df2.duration < "100 days")
-            & (revenue_df2.ticker.isin(_tickers))
+        data=simple_revenue_df.loc[
+            (simple_revenue_df.fp == "FY") & (simple_revenue_df.ticker.isin(_tickers))
         ],
         x="end",
-        y="EstimatedRevenue",
+        y="estimated_revenue",
         hue="ticker",
     )
-    _ax.set_yticks(range(0, int(7e9), int(1e9)))
-    _ax.set_yticklabels(range(0, 7))
+    # _ax.set_yticks(range(0, int(7e9), int(1e9)))
+    # _ax.set_yticklabels(range(0, 7))
     _ax.set_ylabel("Estimated Quarterly Revenue")
 
     sns.despine()
     plt.show()
-    return
-
-
-@app.cell
-def _(revenue_df2):
-    revenue_df2.loc[
-        (revenue_df2.duration > "80 days")
-        & (revenue_df2.duration < "100 days")
-        & (revenue_df2.ticker == "mrna")
-    ]
-    return
-
-
-@app.cell
-def _(biotech_df):
-    biotech_df
     return
 
 
