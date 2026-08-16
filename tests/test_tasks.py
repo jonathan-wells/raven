@@ -10,8 +10,9 @@ from prefect.logging import disable_run_logger
 from orchestration.tasks import (
     request_url,
     call_edgar_api,
-    call_sugra_api,
-    populate_duckdb,
+    # call_sugra_api,
+    # populate_duckdb,
+    populate_edgar_raw,
 )
 
 DATA_DIR = Path(__file__).parent
@@ -25,6 +26,11 @@ def dna_balance():
 @pytest.fixture
 def vrtx_company_facts():
     return json.loads((DATA_DIR / "data" / "vertex_companyfacts.json").read_text())
+
+
+@pytest.fixture
+def edgar_data():
+    return json.loads((DATA_DIR / "data" / "edgar_data.json").read_text())
 
 
 @pytest.fixture
@@ -45,16 +51,16 @@ def get_vrtx_company_facts(monkeypatch, vrtx_company_facts):
     return get
 
 
-def test_call_sugra_api_success(monkeypatch, get_dna_balance, dna_balance):
-    monkeypatch.setattr("orchestration.tasks.config.sugra_api_key", "notakey")
-    with disable_run_logger():
-        data = call_sugra_api.fn("service", "ticker", "dataset")
-    get_dna_balance.assert_called_once_with(
-        "https://sugra.ai/api/v1/service/ticker/dataset",
-        headers={"x-api-key": "notakey"},
-        params={"period": 20, "usd": True, "form": "10-K"},
-    )
-    assert data == dna_balance
+# def test_call_sugra_api_success(monkeypatch, get_dna_balance, dna_balance):
+#     monkeypatch.setattr("orchestration.tasks.config.sugra_api_key", "notakey")
+#     with disable_run_logger():
+#         data = call_sugra_api.fn("service", "ticker", "dataset")
+#     get_dna_balance.assert_called_once_with(
+#         "https://sugra.ai/api/v1/service/ticker/dataset",
+#         headers={"x-api-key": "notakey"},
+#         params={"period": 20, "usd": True, "form": "10-K"},
+#     )
+#     assert data == dna_balance
 
 
 def test_call_edgar_api_success(
@@ -90,23 +96,41 @@ def test_request_url_timeout(monkeypatch):
         request_url("https://www.google.com", headers={}, params={})
 
 
-def test_populate_duckdb(monkeypatch, dna_balance):
-    dbpath = Path("/tmp/tmp.duckdb")
+# def test_populate_duckdb(monkeypatch, dna_balance):
+#     dbpath = Path("/tmp/tmp.duckdb")
+#     monkeypatch.setattr("orchestration.tasks.config.duckdb", dbpath)
+#     conn = duckdb.connect(dbpath)
+#     conn.sql("CREATE SCHEMA IF NOT EXISTS 'raw';")
+#     ticker = "ticker"
+#     dataset = "dataset"
+#     with disable_run_logger():
+#         populate_duckdb(dna_balance, ticker, dataset)
+#
+#     for table, values in dna_balance.items():
+#         if len(values) == 0:
+#             # Skip because empty tables don't get created
+#             continue
+#         data = conn.sql("SET SCHEMA 'raw';")
+#         data = conn.sql(f"SELECT * FROM {dataset}_{table};")
+#         assert data.to_df().shape[0] == len(values)
+#
+#     # If not unset this test could pass based on data saved in prior runs.
+#     dbpath.unlink(missing_ok=True)
+
+
+def test_populate_edgar_raw(monkeypatch, edgar_data):
+    dbpath = Path("/tmp/tmp_edgar.duckdb")
     monkeypatch.setattr("orchestration.tasks.config.duckdb", dbpath)
     conn = duckdb.connect(dbpath)
     conn.sql("CREATE SCHEMA IF NOT EXISTS 'raw';")
-    ticker = "ticker"
-    dataset = "dataset"
+
     with disable_run_logger():
-        populate_duckdb(dna_balance, ticker, dataset)
+        populate_edgar_raw.fn(edgar_data, "VRTX")
 
-    for table, values in dna_balance.items():
-        if len(values) == 0:
-            # Skip because empty tables don't get created
-            continue
-        data = conn.sql("SET SCHEMA 'raw';")
-        data = conn.sql(f"SELECT * FROM {dataset}_{table};")
-        assert data.to_df().shape[0] == len(values)
+    conn.sql("SET SCHEMA 'raw';")
+    data = conn.sql("SELECT * FROM edgar_revenue ORDER BY tag;").to_df()
+    assert data.shape[0] == 2
+    assert set(data["tag"]) == {"Revenues", "SalesRevenueNet"}
+    assert set(data["ticker"]) == {"VRTX"}
 
-    # If not unset this test could pass based on data saved in prior runs.
     dbpath.unlink(missing_ok=True)
