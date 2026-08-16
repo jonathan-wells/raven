@@ -9,7 +9,3 @@ def ticker_to_cik():
             ticker, cik = line.strip().split("\t")
             tickers[ticker.upper()] = f"{cik:0>10}"
     return tickers
-
-
-if __name__ == "__main__":
-    print(ticker_to_cik()["VRTX"])

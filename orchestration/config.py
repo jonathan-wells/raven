@@ -11,8 +11,6 @@ class Config:
 
         if "tickers" not in self._config.keys():
             raise RuntimeError("'tickers' not found in config.yaml")
-        if "datasets" not in self._config.keys():
-            raise RuntimeError("'tickers' not found in config.yaml")
 
         self._config["sugra_api_key"] = self._load_env_var("SUGRA_API_KEY")
         self._config["edgar_header"] = self._load_env_var("EDGAR_HEADER")
