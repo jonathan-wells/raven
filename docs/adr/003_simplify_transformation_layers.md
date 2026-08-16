@@ -1,4 +1,4 @@
-# ADR-NNNN: <short, present-tense decision title>
+# ADR-003: Drop medallion layer
 
 - **Status:** Accepted
 - **Date:** 2026-08-01

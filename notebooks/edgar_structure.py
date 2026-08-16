@@ -9,13 +9,12 @@ def _():
     import re
     import requests
     import time
-    from collections import Counter
 
     import pandas as pd
     import seaborn as sns
     import matplotlib.pyplot as plt
 
-    return Counter, pd, plt, re, requests, sns, time
+    return pd, plt, re, requests, sns, time
 
 
 @app.cell
@@ -82,54 +81,6 @@ def _(ticker_data):
         print(_val["description"])
         print([(item["fy"], item["fp"], item["end"], item["val"]) for item in _data])
         print()
-    return
-
-
-@app.cell
-def _(biotech_df, ticker_data):
-    _i = 0
-    for _ticker in biotech_df.index:
-        if "us-gaap" not in ticker_data[_ticker]["facts"].keys():
-            continue
-        if "Revenues" not in ticker_data[_ticker]["facts"]["us-gaap"].keys():
-            continue
-        _val = ticker_data[_ticker]["facts"]["us-gaap"]["Revenues"]
-        # print(_val.keys())
-        # break
-        # if "Cost" not in key:
-        #     continue
-        # if "units" not in val:
-        #     continue
-        if "USD" not in _val["units"]:
-            continue
-        _data = [
-            item
-            for item in _val["units"]["USD"]
-            if item["form"] == "10-Q" and "frame" not in item.keys()
-        ]
-        if len(_data) == 0:
-            continue
-        print(_i, _ticker)
-        print(_val["description"])
-        print([(item["fy"], item["fp"], item["end"], item["val"]) for item in _data])
-        print()
-        _i += 1
-    return
-
-
-@app.cell
-def _(Counter, biotech_df, ticker_data):
-    _test = Counter()
-    print(len(biotech_df.index))
-    for _ticker in biotech_df.index:
-        if "us-gaap" not in ticker_data[_ticker]["facts"].keys():
-            continue
-        for key in ticker_data[_ticker]["facts"]["us-gaap"].keys():
-            _test[key] += 1
-    for _key, _val in sorted(_test.items(), key=lambda x: -x[1]):
-        # if _val < 100:
-        #     continue
-        print(_val, _key)
     return
 
 
@@ -207,7 +158,7 @@ def _(biotech_df, pd, re, revenue_tags, ticker_data):
     )
     revenue_df["frame_quarter"] = revenue_df.frame.apply(
         lambda x: (
-            re.match(r"CY\d+(Q\d)", x).group(1) if re.match(r"CY\d+(Q\d)", x) else None
+            re.match(r"CY\d+(Q\d)", x).group(1) if re.match(r"CY\d+(Q\d)", x) else "FY"
         )
     )
     revenue_df
@@ -215,64 +166,77 @@ def _(biotech_df, pd, re, revenue_tags, ticker_data):
 
 
 @app.cell
-def _(revenue_df):
-    wide_revenue_df = revenue_df.pivot_table(
+def _(biotech_df, pd, revenue_df):
+    _wide_revenue_df = revenue_df.pivot_table(
         index=["ticker", "frame_year"],
-        columns=["fp"],
+        columns=["frame_quarter"],
         values="EstimatedRevenue",
         aggfunc="last",
-    ).drop("T3", axis=1)
+    )
 
-    complete = wide_revenue_df.notna().all(axis=1)
-    wide_revenue_df["Q4"] = (
-        wide_revenue_df["FY"] - wide_revenue_df[["Q1", "Q2", "Q3"]].sum(axis=1)
-    ).where(complete)
-    wide_revenue_df
-    return (wide_revenue_df,)
+    _complete = _wide_revenue_df[["FY", "Q1", "Q2", "Q3"]].notna().all(axis=1)
+    _wide_revenue_df["Q4"] = (
+        _wide_revenue_df["FY"] - _wide_revenue_df[["Q1", "Q2", "Q3"]].sum(axis=1)
+    ).where(_complete)
+    _wide_revenue_df
 
-
-@app.cell
-def _(revenue_df, wide_revenue_df):
-    end_dict = (
-        revenue_df[["ticker", "frame_year", "fp", "end"]]
-        .set_index(["ticker", "frame_year", "fp"])
+    _date_dict = (
+        revenue_df[["ticker", "frame_year", "frame_quarter", "end", "start"]]
+        .set_index(["ticker", "frame_year", "frame_quarter"])
         .to_dict()
     )
-    for (ticker, year, fp), end_date in list(end_dict.items()):
-        if fp == "FY":
-            end_dict["end"][(ticker, year, "Q4")] = end_date
 
-    simple_revenue_df = wide_revenue_df.reset_index().melt(
+    for (_ticker, _year, _quarter), _end_date in list(_date_dict["end"].items()):
+        if _quarter == "FY":
+            _date_dict["end"][(_ticker, _year, "Q4")] = _end_date
+    for _ticker, _year, _quarter in list(_date_dict["start"].keys()):
+        if _quarter == "FY":
+            _q3_end = _date_dict["end"].get((_ticker, _year, "Q3"))
+            if _q3_end:
+                _date_dict["start"][(_ticker, _year, "Q4")] = _q3_end + pd.Timedelta(
+                    days=1
+                )
+
+    sim_df = _wide_revenue_df.reset_index().melt(
         id_vars=["ticker", "frame_year"], value_name="estimated_revenue"
     )
-    simple_revenue_df["end"] = simple_revenue_df.apply(
-        lambda x: end_dict["end"].get((x.ticker, x.frame_year, x.fp)), axis=1
+    sim_df["start"] = sim_df.apply(
+        lambda x: _date_dict["start"].get((x.ticker, x.frame_year, x.frame_quarter)),
+        axis=1,
     )
-    simple_revenue_df = simple_revenue_df.dropna()
-    simple_revenue_df
-    return (simple_revenue_df,)
+    sim_df["end"] = sim_df.apply(
+        lambda x: _date_dict["end"].get((x.ticker, x.frame_year, x.frame_quarter)),
+        axis=1,
+    )
+    sim_df["duration"] = sim_df.end - sim_df.start
+
+    sim_df = sim_df.dropna()
+    sim_df = biotech_df[["company"]].merge(sim_df, left_index=True, right_on="ticker")
+    return (sim_df,)
 
 
 @app.cell
-def _(plt, simple_revenue_df, sns):
-    _tickers = ["vrtx", "dna", "regn", "mrna", "kymr", "rvmd", "jazz"]
-    # _tickers = ["dna", "kymr", "cogt", "rvmd"]
+def _(plt, sim_df, sns):
+    _tickers = sim_df.sample(5)["ticker"].unique()[:5]
 
     _fig, _ax = plt.subplots()
     sns.lineplot(
-        data=simple_revenue_df.loc[
-            (simple_revenue_df.fp == "FY") & (simple_revenue_df.ticker.isin(_tickers))
+        data=sim_df.loc[
+            (sim_df.frame_quarter != "FY") & (sim_df.ticker.isin(_tickers))
         ],
         x="end",
         y="estimated_revenue",
-        hue="ticker",
+        hue="company",
     )
-    # _ax.set_yticks(range(0, int(7e9), int(1e9)))
-    # _ax.set_yticklabels(range(0, 7))
     _ax.set_ylabel("Estimated Quarterly Revenue")
 
     sns.despine()
     plt.show()
+    return
+
+
+@app.cell
+def _():
     return
 
 
