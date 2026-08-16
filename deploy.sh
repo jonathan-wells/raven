@@ -1,5 +1,6 @@
 duckdb db/raven.duckdb -c "CREATE SCHEMA IF NOT EXISTS raw;"
-duckdb db/raven.duckdb -c "CREATE SCHEMA IF NOT EXISTS aggregated;"
+duckdb db/raven.duckdb -c "CREATE SCHEMA IF NOT EXISTS clean;"
+duckdb db/raven.duckdb -c "CREATE SCHEMA IF NOT EXISTS presentation;"
 
 docker compose --env-file .envrc up --build --remove-orphans -d
 

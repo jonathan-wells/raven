@@ -7,9 +7,9 @@ pull:
       directory: /home/raven
 
 deployments:
-  - name: load-sugra-api-data
-    entrypoint: ./orchestration/flows.py:load_sugra_api_data
-    description: Calls the Sugra API and populates the Raven DuckDB with data.
+  - name: load-edgar-data
+    entrypoint: ./orchestration/flows.py:load_edgar_data
+    description: Calls the EDGAR API and populates the Raven DuckDB with data.
     work_pool:
       name: raven-pool
     schedules:

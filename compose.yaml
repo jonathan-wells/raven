@@ -26,6 +26,7 @@ services:
       dockerfile: Dockerfile
     environment:
       SUGRA_API_KEY: ${SUGRA_API_KEY}
+      EDGAR_HEADER: ${EDGAR_HEADER}
       PREFECT_API_URL: http://prefect-server:4200/api
       RAVEN_DUCKDB: /home/raven/db/raven.duckdb
     healthcheck:
@@ -41,6 +42,7 @@ services:
       - ./orchestration:/home/raven/orchestration
       - ./transforms:/home/raven/transforms
       - ./db:/home/raven/db
+      - ./assets:/home/raven/assets
     depends_on:
       prefect-server:
         condition: service_healthy
