@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: edgar_revenue
+    description: >
+      Reconciled EDGAR quarterly revenue: one row per ticker/quarter, after
+      resolving competing XBRL tags and deriving Q4 as FY - (Q1+Q2+Q3) where
+      all four figures are available (FY itself is dropped from the output,
+      since it shares its "end" date with Q4). Grain is (ticker, frame_year,
+      frame_quarter).
+    columns:
+      - name: ticker
+        data_tests:
+          - not_null
+      - name: frame_year
+        data_tests:
+          - not_null
+      - name: frame_quarter
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["Q1", "Q2", "Q3", "Q4"]
+      - name: val
+        data_tests:
+          - not_null

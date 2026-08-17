@@ -20,5 +20,9 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   raven:
-    aggregated:
+    clean:
       +materialized: view
+      +schema: clean
+    presentation:
+      +materialized: view
+      +schema: presentation
