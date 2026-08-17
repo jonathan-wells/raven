@@ -1,13 +1,19 @@
 import json
 from io import StringIO
+from pathlib import Path
 import requests
 
 from prefect import task
 from prefect.logging import get_run_logger
+from prefect.cache_policies import NO_CACHE
+from prefect_dbt import PrefectDbtRunner, PrefectDbtSettings
 import duckdb
 
 from orchestration.config import config
 from orchestration.utils import ticker_to_cik
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+DBT_PROJECT_DIR = REPO_ROOT / "transforms"
 
 TICKER_TO_CIK = ticker_to_cik()
 
@@ -53,8 +59,12 @@ def request_url(url: str, headers: dict, params: dict = {}) -> dict:
 
 @task(retries=3, retry_delay_seconds=5)
 def call_edgar_api(ticker: str) -> dict:
+    logger = get_run_logger()
     headers = {"User-Agent": config.edgar_header}
-    cik = TICKER_TO_CIK[ticker]
+    cik = TICKER_TO_CIK.get(ticker)
+    if not cik:
+        logger.warn(f"Ticker '{ticker}' not found")
+        return {}
     url = f"https://data.sec.gov/api/xbrl/companyfacts/CIK{cik}.json"
     return request_url(url, headers)
 
@@ -62,6 +72,8 @@ def call_edgar_api(ticker: str) -> dict:
 @task(retries=2, retry_delay_seconds=5)
 def populate_edgar_raw(json_data: dict, ticker: str) -> None:
     logger = get_run_logger()
+    if not json_data:
+        return
     gaap = json_data.get("facts", {}).get("us-gaap", {})
     conn = duckdb.connect(config.duckdb)
     for concept, tags in EDGAR_CONCEPT_TAGS.items():
@@ -94,25 +106,16 @@ def populate_edgar_raw(json_data: dict, ticker: str) -> None:
         )
 
 
-# @task(retries=2, retry_delay_seconds=5)
-# def populate_duckdb(json_data: dict, ticker: str, dataset: str) -> None:
-#     logger = get_run_logger()
-#     conn = duckdb.connect(config.duckdb)
-#     for table, value in json_data.items():
-#         logger.info(f"Populating {ticker} {table} data.")
-#         if not isinstance(value, list):
-#             raise ValueError(f"Unexpected json format: {table} = {type(value)}")
-#         if len(value) == 0:
-#             continue
-#
-#         _json_data = conn.read_json(StringIO(json.dumps(value)))
-#         conn.sql("SET SCHEMA 'raw';")
-#         conn.sql(
-#             f"CREATE TABLE IF NOT EXISTS {dataset}_{table} AS SELECT *, '{ticker}' AS ticker, '{dataset}' AS dataset FROM _json_data;"
-#         )
-#         conn.sql(
-#             f"CREATE TEMPORARY TABLE new_{dataset}_{table} AS SELECT *, '{ticker}' AS ticker, '{dataset}' AS dataset FROM _json_data;"
-#         )
-#         conn.sql(
-#             f"MERGE INTO {dataset}_{table} AS t USING new_{dataset}_{table} AS s ON t.accession_number == s.accession_number WHEN NOT MATCHED THEN INSERT BY NAME;"
-#         )
+@task(cache_policy=NO_CACHE)
+def invoke_dbt(command: list[str]) -> None:
+    """Run a dbt command via PrefectDbtRunner."""
+    logger = get_run_logger()
+    logger.info(f"Invoking dbt: {' '.join(command)}")
+
+    runner = PrefectDbtRunner(
+        settings=PrefectDbtSettings(
+            project_dir=DBT_PROJECT_DIR,
+            profiles_dir=Path(DBT_PROJECT_DIR),
+        )
+    )
+    runner.invoke([*command])

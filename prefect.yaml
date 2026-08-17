@@ -13,6 +13,16 @@ deployments:
     work_pool:
       name: raven-pool
     schedules:
-      - cron: "25 22 * * 1-5"
+      - cron: "00 22 * * 4"
+        timezone: America/New_York
+        active: true
+
+  - name: run-dbt
+    entrypoint: ./orchestration/flows.py:run_dbt
+    description: Runs dbt to build clean and presentation layer models.
+    work_pool:
+      name: raven-pool
+    schedules:
+      - cron: "15 22 * * 1-7"
         timezone: America/New_York
         active: true
