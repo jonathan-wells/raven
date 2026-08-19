@@ -22,10 +22,38 @@ EDGAR_CONCEPT_TAGS = {
         "RevenueFromContractWithCustomerExcludingAssessedTax",
         "Revenues",
         "SalesRevenueNet",
-        "RevenueFromContractWithCustomerIncludingAssessedTax",
         "SalesRevenueGoodsNet",
         "SalesRevenueServicesNet",
         "SalesRevenueGoodsGross",
+    ],
+    "cost_of_revenue": [
+        "CostOfRevenue",
+        "CostOfGoodsAndServicesSold",
+    ],
+    "gross_profit": [
+        "GrossProfit",
+    ],
+    "operating_expense": [
+        "OperatingExpenses",
+        "CostsAndExpenses",
+    ],
+    "operating_income": [
+        "OperatingIncomeLoss",
+    ],
+    "net_income": [
+        "NetIncomeLoss",
+    ],
+    "total_assets": [
+        "Assets",
+    ],
+    "cash": [
+        "CashAndCashEquivalentsAtCarryingValue",
+    ],
+    "total_liabilities": [
+        "Liabilities",
+    ],
+    "long_term_debt": [
+        "LongTermDebtNoncurrent",
     ],
 }
 
@@ -47,14 +75,6 @@ def request_url(url: str, headers: dict, params: dict = {}) -> dict:
     else:
         logger.info("Succesfully retrieved data.")
         return response.json()
-
-
-# @task(retries=3, retry_delay_seconds=5)
-# def call_sugra_api(service: str, ticker: str, dataset: str) -> dict:
-#     headers = {"x-api-key": config.sugra_api_key}
-#     params = {"period": 20, "usd": True, "form": "10-K"}
-#     url = f"https://sugra.ai/api/v1/{service}/{ticker}/{dataset}"
-#     return request_url(url, headers, params)
 
 
 @task(retries=3, retry_delay_seconds=5)
