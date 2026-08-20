@@ -6,3 +6,12 @@ sources:
     schema: raw
     tables:
       - name: edgar_revenue
+      - name: edgar_cost_of_revenue
+      - name: edgar_gross_profit
+      - name: edgar_operating_expense
+      - name: edgar_operating_income
+      - name: edgar_net_income
+      - name: edgar_total_assets
+      - name: edgar_cash
+      - name: edgar_total_liabilities
+      - name: edgar_long_term_debt
