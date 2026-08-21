@@ -24,13 +24,163 @@ models:
       - name: val
         data_tests:
           - not_null
+
   - name: edgar_cost_of_revenue
     description: >
       Reconciled EDGAR quarterly expenses incurred in the process of generating
-      revenue: one row per ticker/quarter, after resolving competing XBRL tags
-      and deriving Q4 as FY - (Q1+Q2+Q3) where all four figures are available
-      (FY itself is dropped from the output, since it shares its "end" date with
-      Q4). Grain is (ticker, frame_year, frame_quarter).
+      revenue.
+    columns:
+      - name: ticker
+        data_tests:
+          - not_null
+      - name: frame_year
+        data_tests:
+          - not_null
+      - name: frame_quarter
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["Q1", "Q2", "Q3", "Q4"]
+      - name: val
+        data_tests:
+          - not_null
+
+  - name: edgar_gross_profit
+    description: Reconciled EDGAR quarterly gross profit.
+    columns:
+      - name: ticker
+        data_tests:
+          - not_null
+      - name: frame_year
+        data_tests:
+          - not_null
+      - name: frame_quarter
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["Q1", "Q2", "Q3", "Q4"]
+      - name: val
+        data_tests:
+          - not_null
+
+  - name: edgar_operating_expense
+    description: Reconciled EDGAR quarterly operating expenses.
+    columns:
+      - name: ticker
+        data_tests:
+          - not_null
+      - name: frame_year
+        data_tests:
+          - not_null
+      - name: frame_quarter
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["Q1", "Q2", "Q3", "Q4"]
+      - name: val
+        data_tests:
+          - not_null
+
+  - name: edgar_operating_income
+    description: Reconciled EDGAR quarterly operating income.
+    columns:
+      - name: ticker
+        data_tests:
+          - not_null
+      - name: frame_year
+        data_tests:
+          - not_null
+      - name: frame_quarter
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["Q1", "Q2", "Q3", "Q4"]
+      - name: val
+        data_tests:
+          - not_null
+
+  - name: edgar_net_income
+    description: Reconciled EDGAR quarterly net income.
+    columns:
+      - name: ticker
+        data_tests:
+          - not_null
+      - name: frame_year
+        data_tests:
+          - not_null
+      - name: frame_quarter
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["Q1", "Q2", "Q3", "Q4"]
+      - name: val
+        data_tests:
+          - not_null
+
+  - name: edgar_total_assets
+    description: Reconciled EDGAR quarterly total assets.
+    columns:
+      - name: ticker
+        data_tests:
+          - not_null
+      - name: frame_year
+        data_tests:
+          - not_null
+      - name: frame_quarter
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["Q1", "Q2", "Q3", "Q4"]
+      - name: val
+        data_tests:
+          - not_null
+
+  - name: edgar_cash
+    description: Reconciled EDGAR quarterly cash and cash equivalents.
+    columns:
+      - name: ticker
+        data_tests:
+          - not_null
+      - name: frame_year
+        data_tests:
+          - not_null
+      - name: frame_quarter
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["Q1", "Q2", "Q3", "Q4"]
+      - name: val
+        data_tests:
+          - not_null
+
+  - name: edgar_total_liabilities
+    description: Reconciled EDGAR quarterly total liabilities.
+    columns:
+      - name: ticker
+        data_tests:
+          - not_null
+      - name: frame_year
+        data_tests:
+          - not_null
+      - name: frame_quarter
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["Q1", "Q2", "Q3", "Q4"]
+      - name: val
+        data_tests:
+          - not_null
+
+  - name: edgar_long_term_debt
+    description: Reconciled EDGAR quarterly long-term debt (noncurrent).
     columns:
       - name: ticker
         data_tests:
