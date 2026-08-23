@@ -1,4 +1,7 @@
 tickers:
+  - "MRNA"
+  - "JAZZ"
+  - "DNA"
   - "REGN"
   - "NVCT"
   - "ZBIO"
@@ -50,7 +53,7 @@ tickers:
   - "VRXA"
   - "ANL"
   - "RZLT"
-  - "tbph"
+  - "TBPH"
   - "FENC"
   - "NRXP"
   - "DMRA"

@@ -2,6 +2,64 @@ import os
 from pathlib import Path
 import yaml
 
+from orchestration.utils import ticker_to_cik
+
+TICKER_TO_CIK = ticker_to_cik()
+
+EDGAR_CONCEPT_TAGS = {
+    "income": {
+        "revenue": [
+            "RevenueFromContractWithCustomerExcludingAssessedTax",
+            "Revenues",
+            "SalesRevenueNet",
+            "SalesRevenueGoodsNet",
+            "SalesRevenueServicesNet",
+            "SalesRevenueGoodsGross",
+        ],
+        "cost_of_revenue": [
+            "CostOfRevenue",
+            "CostOfGoodsAndServicesSold",
+        ],
+        "gross_profit": [
+            "GrossProfit",
+        ],
+        "operating_expense": [
+            "OperatingExpenses",
+            "CostsAndExpenses",
+        ],
+        "operating_income": [
+            "OperatingIncomeLoss",
+        ],
+        "net_income": [
+            "NetIncomeLoss",
+        ],
+    },
+    "balance": {
+        "total_assets": [
+            "Assets",
+            "LiabilitiesAndStockholdersEquity",
+        ],
+        "current_assets": [
+            "AssetsCurrent",
+        ],
+        "cash": [
+            "CashAndCashEquivalentsAtCarryingValue",
+        ],
+        "total_liabilities": [
+            "Liabilities",
+        ],
+        "current_liabilities": [
+            "LiabilitiesCurrent",
+        ],
+        "long_term_debt": [
+            "LongTermDebtNoncurrent",
+        ],
+        "stockholders_equity": [
+            "StockholdersEquity",
+        ],
+    },
+}
+
 
 class Config:
     def __init__(self):

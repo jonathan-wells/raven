@@ -9,53 +9,10 @@ from prefect.cache_policies import NO_CACHE
 from prefect_dbt import PrefectDbtRunner, PrefectDbtSettings
 import duckdb
 
-from orchestration.config import config
-from orchestration.utils import ticker_to_cik
+from orchestration.config import config, EDGAR_CONCEPT_TAGS, TICKER_TO_CIK
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DBT_PROJECT_DIR = REPO_ROOT / "transforms"
-
-TICKER_TO_CIK = ticker_to_cik()
-
-EDGAR_CONCEPT_TAGS = {
-    "revenue": [
-        "RevenueFromContractWithCustomerExcludingAssessedTax",
-        "Revenues",
-        "SalesRevenueNet",
-        "SalesRevenueGoodsNet",
-        "SalesRevenueServicesNet",
-        "SalesRevenueGoodsGross",
-    ],
-    "cost_of_revenue": [
-        "CostOfRevenue",
-        "CostOfGoodsAndServicesSold",
-    ],
-    "gross_profit": [
-        "GrossProfit",
-    ],
-    "operating_expense": [
-        "OperatingExpenses",
-        "CostsAndExpenses",
-    ],
-    "operating_income": [
-        "OperatingIncomeLoss",
-    ],
-    "net_income": [
-        "NetIncomeLoss",
-    ],
-    "total_assets": [
-        "Assets",
-    ],
-    "cash": [
-        "CashAndCashEquivalentsAtCarryingValue",
-    ],
-    "total_liabilities": [
-        "Liabilities",
-    ],
-    "long_term_debt": [
-        "LongTermDebtNoncurrent",
-    ],
-}
 
 
 def request_url(url: str, headers: dict, params: dict = {}) -> dict:
