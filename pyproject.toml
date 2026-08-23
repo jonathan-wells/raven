@@ -9,6 +9,7 @@ dependencies = [
     "dbt-core>=1.11.12",
     "dbt-duckdb>=1.10.1",
     "duckdb>=1.5.4",
+    "polars>=1.43.2",
     "prefect>=3.7.7",
     "prefect-dbt>=0.7.25",
     "streamlit>=1.60.0",
