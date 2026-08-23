@@ -2,16 +2,26 @@ version: 2
 
 sources:
   - name: raw
-    description: "Raw data pulled straight from the EDGAR companyfacts API."
     schema: raw
     tables:
-      - name: edgar_revenue
+      - name: edgar_revenue_from_contract_with_customer_excluding_assessed_tax
+      - name: edgar_revenues
+      - name: edgar_sales_revenue_net
+      - name: edgar_sales_revenue_goods_net
+      - name: edgar_sales_revenue_services_net
+      - name: edgar_sales_revenue_goods_gross
       - name: edgar_cost_of_revenue
+      - name: edgar_cost_of_goods_and_services_sold
       - name: edgar_gross_profit
-      - name: edgar_operating_expense
-      - name: edgar_operating_income
-      - name: edgar_net_income
-      - name: edgar_total_assets
-      - name: edgar_cash
-      - name: edgar_total_liabilities
-      - name: edgar_long_term_debt
+      - name: edgar_operating_expenses
+      - name: edgar_costs_and_expenses
+      - name: edgar_operating_income_loss
+      - name: edgar_net_income_loss
+      - name: edgar_assets
+      - name: edgar_liabilities_and_stockholders_equity
+      - name: edgar_assets_current
+      - name: edgar_cash_and_cash_equivalents_at_carrying_value
+      - name: edgar_liabilities
+      - name: edgar_liabilities_current
+      - name: edgar_long_term_debt_noncurrent
+      - name: edgar_stockholders_equity
