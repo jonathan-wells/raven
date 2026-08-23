@@ -54,12 +54,29 @@ derived_q4 as (
 -- consistently, so Q4 is always taken from derived_q4 (dropped entirely when
 -- it can't be derived) rather than mixed with raw Q4 frames, which would
 -- otherwise duplicate the (ticker, frame_year, 'Q4') grain.
-select ticker, frame_year, frame_quarter, val, "end", filed, form
+select
+    ticker,
+    frame_year,
+    frame_quarter,
+    val,
+    "end" as quarter_end,
+    filed,
+    form,
+    '{{ source_table.removeprefix("edgar_") }}' as tag
 from classified
 where frame_quarter not in ('Q4', 'FY')
 
 union all
 
-select ticker, frame_year, frame_quarter, val, "end", filed, form
+select
+    ticker,
+    frame_year,
+    frame_quarter,
+    val,
+    "end" as quarter_end,
+    filed,
+    form,
+    '{{ source_table.removeprefix("edgar_") }}' as tag
 from derived_q4
+
 {%- endmacro %}

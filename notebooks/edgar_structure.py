@@ -16,6 +16,8 @@ def _():
     import matplotlib.pyplot as plt
 
     plt.rcParams["font.sans-serif"] = "Futura"
+
+    # FT palette
     plt.rcParams["figure.facecolor"] = "#fff1e5"
     plt.rcParams["axes.facecolor"] = "#fff1e5"
     PALETTE = [
@@ -47,41 +49,34 @@ def _(Path, logger, os, requests):
         url = f"https://data.sec.gov/api/xbrl/companyfacts/CIK{cik}.json"
         return requests.get(url=url, headers=headers)
 
-    return (call_edgar_api,)
+    return
 
 
 @app.cell
-def _(duckdb, pl):
+def _(duckdb):
     conn = duckdb.connect("db/raven.duckdb")
-    assets_df = conn.execute("SELECT * FROM raw.edgar_total_assets;").pl()
-    liabilities_df = conn.execute("SELECT * FROM raw.edgar_total_liabilities;").pl()
-    equity_df = conn.execute("SELECT * FROM raw.edgar_stockholders_equity;").pl()
-
-    equity_df = equity_df.with_columns(pl.col("val").cast(pl.Int64))
-
-    df = pl.concat([assets_df, liabilities_df, equity_df]).pivot(
-        on="tag", index=["end", "accn", "fy", "fp", "form", "filed", "frame", "ticker"]
-    )
-    df = df.with_columns((pl.col("Assets") - pl.col("Liabilities")).alias("CalcEquity"))
-    df.filter(
-        (~pl.col("StockholdersEquity").is_null()) & (~pl.col("CalcEquity").is_null())
-    )
-    return assets_df, df
+    balance_df = conn.execute("SELECT * FROM presentation.balance_sheet").pl()
+    conn.close()
+    balance_df
+    return (balance_df,)
 
 
 @app.cell
-def _(PALETTE, df, pl, plt, sns):
+def _(PALETTE, balance_df, pl, plt, sns):
+    _concepts = ["assets_val", "liabilities_val", "liabilities_current_val"]
     _fig, _axes = plt.subplots(
         figsize=(12, 4),
-        ncols=3,
+        ncols=len(_concepts),
         sharex=True,
         sharey=True,
     )
 
-    for _tag, _ax in zip(["Assets", "Liabilities", "Equity"], _axes):
+    for _tag, _ax in zip(_concepts, _axes):
         sns.lineplot(
-            data=df.filter(pl.col("ticker").is_in(["REGN", "VRTX", "MRNA", "DNA"])),
-            x="end",
+            data=balance_df.filter(
+                pl.col("ticker").is_in(["REGN", "VRTX", "MRNA", "DNA"])
+            ),
+            x="quarter_end",
             y=_tag,
             hue="ticker",
             palette=PALETTE,
@@ -95,34 +90,23 @@ def _(PALETTE, df, pl, plt, sns):
             [x._text.split("-")[0] for x in _ax.get_xticklabels()], rotation=45
         )
         _ax.set_yticklabels([-10, 0, 10, 20, 30, 40])
-    _axes[2].legend().remove()
-    _axes[1].legend().remove()
-    _axes[0].legend(framealpha=0.4)
+    # _axes[2].legend().remove()
+    # _axes[1].legend().remove()
+    # _axes[0].legend(framealpha=0.4)
 
     sns.despine()
     plt.tight_layout()
-    plt.show()
-
+    _fig
     return
 
 
 @app.cell
-def _(call_edgar_api):
-    data = call_edgar_api("JAZZ")
-    data
-    return (data,)
-
-
-@app.cell
-def _(data):
-    # list(data.json()["facts"]["us-gaap"]["Assets"]["units"]["USD"])
-    [k for k in data.json()["facts"]["us-gaap"].keys() if "iabilities" in k]
+def _():
     return
 
 
 @app.cell
-def _(assets_df, pl):
-    assets_df.filter(pl.col("ticker") == "JAZZ")
+def _():
     return
 
 
