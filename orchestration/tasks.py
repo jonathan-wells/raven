@@ -10,6 +10,8 @@ from prefect_dbt import PrefectDbtRunner, PrefectDbtSettings
 import duckdb
 
 from orchestration.config import config, EDGAR_CONCEPT_TAGS, TICKER_TO_CIK
+from orchestration.utils import xbrl_to_snakecase
+
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DBT_PROJECT_DIR = REPO_ROOT / "transforms"
@@ -53,34 +55,39 @@ def populate_edgar_raw(json_data: dict, ticker: str) -> None:
         return
     gaap = json_data.get("facts", {}).get("us-gaap", {})
     conn = duckdb.connect(config.duckdb)
-    for concept, tags in EDGAR_CONCEPT_TAGS.items():
-        rows = []
-        for tag in tags:
-            tag_data = gaap.get(tag)
-            if tag_data is None:
-                continue
-            usd_facts = tag_data.get("units", {}).get("USD")
-            if not usd_facts:
-                continue
-            for fact in usd_facts:
-                if "frame" not in fact:
+    for aggregate, concepts in EDGAR_CONCEPT_TAGS.items():
+        for concept, tags in concepts.items():
+            for tag in tags:
+                rows = []
+                tag_data = gaap.get(tag)
+                if tag_data is None:
                     continue
-                rows.append({**fact, "tag": tag, "ticker": ticker})
+                usd_facts = tag_data.get("units", {}).get("USD")
+                if not usd_facts:
+                    continue
+                for fact in usd_facts:
+                    if "frame" not in fact:
+                        continue
+                    rows.append({**fact, "tag": tag, "ticker": ticker})
 
-        table = f"edgar_{concept}"
-        logger.info(f"Populating {ticker} {table} data.")
-        if len(rows) == 0:
-            continue
+                table = f"edgar_{xbrl_to_snakecase(tag)}"
+                logger.info(f"Populating {ticker} {table} data.")
+                if len(rows) == 0:
+                    continue
 
-        _json_data = conn.read_json(StringIO(json.dumps(rows)))
-        conn.sql("SET SCHEMA 'raw';")
-        conn.sql(f"CREATE TABLE IF NOT EXISTS {table} AS SELECT * FROM _json_data;")
-        conn.sql(f"CREATE TEMPORARY TABLE new_{table} AS SELECT * FROM _json_data;")
-        conn.sql(
-            f"MERGE INTO {table} AS t USING new_{table} AS s "
-            "ON t.ticker == s.ticker AND t.tag == s.tag AND t.accn == s.accn "
-            "WHEN NOT MATCHED THEN INSERT BY NAME;"
-        )
+                _json_data = conn.read_json(StringIO(json.dumps(rows)))
+                conn.sql("SET SCHEMA 'raw';")
+                conn.sql(
+                    f"CREATE TABLE IF NOT EXISTS {table} AS SELECT * FROM _json_data;"
+                )
+                conn.sql(
+                    f"CREATE TEMPORARY TABLE new_{table} AS SELECT * FROM _json_data;"
+                )
+                conn.sql(
+                    f"MERGE INTO {table} AS t USING new_{table} AS s "
+                    "ON t.ticker == s.ticker AND t.tag == s.tag AND t.accn == s.accn "
+                    "WHEN NOT MATCHED THEN INSERT BY NAME;"
+                )
 
 
 @task(cache_policy=NO_CACHE)

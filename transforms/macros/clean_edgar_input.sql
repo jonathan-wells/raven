@@ -1,31 +1,8 @@
-{% macro clean_edgar_input(source_table, xbrl_tags) -%}
+{% macro clean_edgar_input(source_table) -%}
 with facts as (
     select
         *
     from {{ source('raw', source_table) }}
-),
-
--- Tag-priority coalesce: multiple XBRL tags can report the same period: prefer
--- the first tag in EDGAR_CONCEPT_TAGS[concept] (orchestration/tasks.py) and
--- break remaining ties by the most recently filed value.
-ranked as (
-    select
-        *,
-        case tag
-            {% for i in range(xbrl_tags|length) %}
-                when '{{ xbrl_tags[i] }}' then {{ i + 1 }}
-            {% endfor %}
-        end as tag_rank
-    from facts
-),
-
-deduped as (
-    select ticker, frame, val, "start", "end", filed, form
-    from ranked
-    qualify row_number() over (
-        partition by ticker, frame
-        order by tag_rank, filed desc
-    ) = 1
 ),
 
 -- Quarter classification: frame is 'CYyyyy' for annual facts, 'CYyyyyQn' for
@@ -35,7 +12,7 @@ classified as (
         *,
         regexp_extract(frame, 'CY(\d+)', 1)::int as frame_year,
         coalesce(nullif(regexp_extract(frame, 'CY\d+(Q\d)', 1), ''), 'FY') as frame_quarter
-    from deduped
+    from facts
 ),
 
 pivoted as (
