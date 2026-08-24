@@ -75,14 +75,27 @@ def _(duckdb):
 
 
 @app.cell
+def _(balance_df, pl):
+    balance_df.filter((pl.col("assets").is_null()))
+    return
+
+
+@app.cell
 def _(PCA, StandardScaler, balance_df, plt):
-    _complete_df = balance_df.drop_nulls()
-    _value_cols = _complete_df.columns[4:11]
+    _value_cols = balance_df.columns[4:11]
+    _value_cols = [
+        "assets",
+        "liabilities",
+        "stockholders_equity",
+        "cash_and_cash_equivalents_at_carrying_value",
+    ]
+    _complete_df = balance_df[_value_cols].drop_nulls()
+    print(_complete_df.shape)
     _pca = PCA(n_components=3)
     _scaler = StandardScaler()
-    _x = _pca.fit_transform(_scaler.fit_transform(_complete_df[_value_cols]))
+    _x = _pca.fit_transform(_scaler.fit_transform(_complete_df))
 
-    plt.scatter(_x[:, 0], _x[:, 1])
+    plt.scatter(_x[:, 0], _x[:, 1], alpha=0.4)
     return
 
 
@@ -102,7 +115,7 @@ def _(PALETTE, balance_df, pl, plt, sns):
 
     for _tag, _ax in zip(_concepts, _axes):
         sns.lineplot(
-            data=balance_df.filter(pl.col("ticker").is_in(["LYEL", "DNA", "ANTX"])),
+            data=balance_df.filter(pl.col("ticker").is_in(["MRNA", "VRTX", "DNA"])),
             x="quarter_end",
             y=_tag,
             hue="ticker",
