@@ -5,6 +5,7 @@ description = "Raven pulls SEC filings and facilitates data vizualisation."
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "anndata>=0.13.2",
     "dbt>=1.0.0.40.18",
     "dbt-core>=1.11.12",
     "dbt-duckdb>=1.10.1",
@@ -12,6 +13,7 @@ dependencies = [
     "polars>=1.43.2",
     "prefect>=3.7.7",
     "prefect-dbt>=0.7.25",
+    "scikit-learn>=1.9.0",
     "streamlit>=1.60.0",
 ]
 

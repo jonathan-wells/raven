@@ -14,6 +14,8 @@ def _():
     import polars as pl
     import seaborn as sns
     import matplotlib.pyplot as plt
+    from sklearn.decomposition import PCA
+    from sklearn.preprocessing import StandardScaler
 
     plt.rcParams["font.sans-serif"] = "Futura"
 
@@ -26,7 +28,18 @@ def _():
         "#0f5499",  # Oxford Blue
         "#262a33",  # Slate
     ]
-    return PALETTE, Path, duckdb, os, pl, plt, requests, sns
+    return (
+        PALETTE,
+        PCA,
+        Path,
+        StandardScaler,
+        duckdb,
+        os,
+        pl,
+        plt,
+        requests,
+        sns,
+    )
 
 
 @app.cell
@@ -62,8 +75,24 @@ def _(duckdb):
 
 
 @app.cell
+def _(PCA, StandardScaler, balance_df, plt):
+    _complete_df = balance_df.drop_nulls()
+    _value_cols = _complete_df.columns[4:11]
+    _pca = PCA(n_components=3)
+    _scaler = StandardScaler()
+    _x = _pca.fit_transform(_scaler.fit_transform(_complete_df[_value_cols]))
+
+    plt.scatter(_x[:, 0], _x[:, 1])
+    return
+
+
+@app.cell
 def _(PALETTE, balance_df, pl, plt, sns):
-    _concepts = ["assets_val", "liabilities_val", "liabilities_current_val"]
+    _concepts = [
+        "assets",
+        "stockholders_equity",
+        "cash_and_cash_equivalents_at_carrying_value",
+    ]
     _fig, _axes = plt.subplots(
         figsize=(12, 4),
         ncols=len(_concepts),
@@ -73,9 +102,7 @@ def _(PALETTE, balance_df, pl, plt, sns):
 
     for _tag, _ax in zip(_concepts, _axes):
         sns.lineplot(
-            data=balance_df.filter(
-                pl.col("ticker").is_in(["REGN", "VRTX", "MRNA", "DNA"])
-            ),
+            data=balance_df.filter(pl.col("ticker").is_in(["LYEL", "DNA", "ANTX"])),
             x="quarter_end",
             y=_tag,
             hue="ticker",
@@ -84,29 +111,19 @@ def _(PALETTE, balance_df, pl, plt, sns):
         )
         _ax.set_xlabel("")
         _ax.set_ylabel("Value ($B)")
-        _ax.set_title(_tag)
+        _ax.set_title(" ".join(_tag.split("_")))
         _ax.grid(ls=":")
         _ax.set_xticklabels(
             [x._text.split("-")[0] for x in _ax.get_xticklabels()], rotation=45
         )
         _ax.set_yticklabels([-10, 0, 10, 20, 30, 40])
-    # _axes[2].legend().remove()
-    # _axes[1].legend().remove()
-    # _axes[0].legend(framealpha=0.4)
+    _axes[2].legend().remove()
+    _axes[1].legend().remove()
+    _axes[0].legend(framealpha=0.4)
 
     sns.despine()
     plt.tight_layout()
     _fig
-    return
-
-
-@app.cell
-def _():
-    return
-
-
-@app.cell
-def _():
     return
 
 

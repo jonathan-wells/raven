@@ -1,6 +1,5 @@
 import os
 from pathlib import Path
-import yaml
 
 from orchestration.utils import ticker_to_cik
 
@@ -63,13 +62,10 @@ EDGAR_CONCEPT_TAGS = {
 
 class Config:
     def __init__(self):
-        configpath = Path(__file__).parent.parent / "config.yaml"
-        with open(configpath) as yamlfile:
-            self._config = yaml.safe_load(yamlfile)
-
-        if "tickers" not in self._config.keys():
-            raise RuntimeError("'tickers' not found in config.yaml")
-
+        biotech_path = Path(__file__).parent.parent / "assets" / "biotech.txt"
+        self._config = {}
+        with open(biotech_path) as file:
+            self._config["tickers"] = [line.split("\t")[0].upper() for line in file]
         self._config["sugra_api_key"] = self._load_env_var("SUGRA_API_KEY")
         self._config["edgar_header"] = self._load_env_var("EDGAR_HEADER")
         self._config["duckdb"] = self._load_env_var("RAVEN_DUCKDB")
