@@ -1,6 +1,6 @@
 # ADR-005: Structure of tables in raw-clean-presentation
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-08-22
 
 ## Decision
